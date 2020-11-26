@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Carousel from "react-elastic-carousel";
-import { Card, Row, Container, Spinner } from "react-bootstrap";
+import { Card, Row, Container, Spinner, Button } from "react-bootstrap";
 
 class Gallery2 extends React.Component {
   state = {
@@ -37,14 +37,9 @@ class Gallery2 extends React.Component {
         )}
         <h1 style={{ marginLeft: 85 }}>{this.state.search}</h1>
         <Carousel itemsToShow={5}>
-          {this.state.movies.map((movie, index) => (
+          {this.state.movies.map((movie, key) => (
             <Row>
-              <Card
-                className="d-flex justify-content-center mt-2 mb-5"
-                md={4}
-                lg={3}
-                key={index}
-              >
+              <Card className="mt-2 mb-5" md={4} lg={3} key={key}>
                 <Card.Img
                   variant="top"
                   style={{ objectFit: "cover", width: 300, height: 400 }}
@@ -58,6 +53,9 @@ class Gallery2 extends React.Component {
                 <Card.Footer>
                   <small className="text-muted">{movie.Year}</small>
                 </Card.Footer>
+                <Button className="mx-auto" variant="info">
+                  Info
+                </Button>
               </Card>
             </Row>
           ))}

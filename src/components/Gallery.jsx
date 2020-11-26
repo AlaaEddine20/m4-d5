@@ -1,13 +1,15 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Carousel from "react-elastic-carousel";
-import { Card, Row, Container, Spinner } from "react-bootstrap";
+import { Card, Row, Container, Spinner, Button } from "react-bootstrap";
+import ShowDetails from "./ShowDetails";
 
 class Gallery extends React.Component {
   state = {
     movies: [],
-    search: "harry potter",
+    search: this.props.search || "harry potter",
     loading: true,
+    type: this.props.type,
   };
 
   componentDidMount = async () => {
@@ -15,10 +17,11 @@ class Gallery extends React.Component {
       if (this.props.search) {
         let response = await fetch(
           "http://www.omdbapi.com/?&s=" +
-            this.props.search +
+            this.state.search +
             "&apikey=ee4589ef&type=" +
-            this.props.type
+            this.state.type
         );
+
         let movies = await response.json();
         this.setState({ movies: movies.Search, loading: false });
       } else {
@@ -29,6 +32,7 @@ class Gallery extends React.Component {
             this.props.type
         );
         let movies = await response.json();
+        console.log(movies);
         this.setState({ movies: movies.Search, loading: false });
       }
     } catch (error) {
@@ -51,14 +55,10 @@ class Gallery extends React.Component {
           <h1 style={{ marginLeft: 85 }}>{this.state.search}</h1>
         )}
         <Carousel itemsToShow={5}>
-          {this.state.movies.map((movie, index) => (
+          {this.state.movies.map((movie, key) => (
+            console.log(movie)
             <Row>
-              <Card
-                className="d-flex justify-content-center mt-2 mb-5"
-                md={4}
-                lg={3}
-                key={index}
-              >
+              <Card className="col-sm-3 col-md-6 col-lg-12 mt-2 mb-5" key={key}>
                 <Card.Img
                   variant="top"
                   style={{ objectFit: "cover", width: 300, height: 400 }}
@@ -72,7 +72,17 @@ class Gallery extends React.Component {
                 <Card.Footer>
                   <small className="text-muted">{movie.Year}</small>
                 </Card.Footer>
+                <Button
+                  onClick={() => {
+                    this.setState({ selectedMovie: movie });
+                  }}
+                  className="mx-auto"
+                  variant="info"
+                >
+                  Info
+                </Button>
               </Card>
+              <ShowDetails movie={this.state.selectedMovie} />
             </Row>
           ))}
         </Carousel>
