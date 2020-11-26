@@ -2,7 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Col, Container, Row, Image } from "react-bootstrap";
 
-export default class ShowDetails extends React.Component {
+export default class MovieDetails extends React.Component {
   state = {
     data: null,
     title: null,

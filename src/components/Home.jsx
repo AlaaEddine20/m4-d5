@@ -1,9 +1,8 @@
 import React from "react";
 import Gallery from "./Gallery";
-import Gallery2 from "./Gallery2";
-import Gallery3 from "./Gallery3";
 import { Alert, Button } from "react-bootstrap";
-//import MovieModal from "./MovieModal";
+import MovieModal from "./MovieModal";
+import CommentListFetch from "./CommentListFetch";
 
 class Home extends React.Component {
   state = {
@@ -113,14 +112,14 @@ class Home extends React.Component {
             </div>
           </div>
 
-          {/* {this.state.selectedMovieID && (
+          {this.state.selectedMovieID && (
             <>
-              <CommentListWithFetch imdbID={this.state.selectedMovieID} />
+              <CommentListFetch imdbID={this.state.selectedMovieID} />
               <Button onClick={() => this.setState({ selectedMovieID: null })}>
                 Reset comments
               </Button>
             </>
-          )} */}
+          )}
 
           {this.state.error && (
             <Alert variant="danger" className="text-center">
@@ -154,7 +153,7 @@ class Home extends React.Component {
                   handleOpenModal={this.handleOpenModal}
                   // selectedMovieID={this.handleSelectedMovie}
                 />
-                <Gallery2
+                <Gallery
                   title="Star Wars"
                   loading={this.state.loading}
                   movies={this.state.spiderMan.slice(0, 6)}
@@ -163,7 +162,7 @@ class Home extends React.Component {
                   handleOpenModal={this.handleOpenModal}
                   // selectedMovieID={this.handleSelectedMovie}
                 />
-                <Gallery3
+                <Gallery
                   title="Harry Potter"
                   loading={this.state.loading}
                   movies={this.state.batman.slice(0, 6)}
@@ -174,13 +173,13 @@ class Home extends React.Component {
                 />
               </>
             )}
-          {/* <MovieModal
+          <MovieModal
             isOpen={this.state.showModal}
             selectedMovieID={this.state.selectedMovieID}
             comments={this.state.comments}
             close={this.handleCloseModal}
             fetchComments={this.fetchComments}
-          /> */}
+          />
         </div>
       </div>
     );
